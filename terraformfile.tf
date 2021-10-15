@@ -8,8 +8,8 @@ provider "azurerm" {
 terraform {
   backend "azurerm" {
     resource_group_name  = "Devops_Kochi"
-    storage_account_name = "rahul1storageaccount"
-    container_name       = "blobcontainer2"
+    storage_account_name = "rahulstorageaccount02"
+    container_name       = "blobcontainer03"
     key                  = "terraform.tfstate"
   }
 }
