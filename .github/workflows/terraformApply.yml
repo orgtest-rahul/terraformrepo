@@ -1,0 +1,30 @@
+name: Terraform Apply
+
+on:
+   workflow_dispatch
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    env:
+      ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
+      ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
+      ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
+
+    steps:
+      - name: Step -1 Checkout 
+        uses: actions/checkout@v2
+
+      - name: Step -2 Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Step -3 Terraform Init
+        run: terraform init
+
+      - name: Step -4 Terraform Plan
+        run: terraform plan
+
+      - name: Step -5 Terraform Apply
+        run: terraform apply -auto-approve
