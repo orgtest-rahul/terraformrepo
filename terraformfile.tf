@@ -52,6 +52,23 @@ resource "azurerm_app_service" "rahulappservice" {
 
 }
 
+variable "web_app_name" {
+  type        = string
+  description = "rahultestwebapp08"
+}
+variable "registry_name" {
+  type        = string
+  description = "rahultestwebapp04acr"
+}
+variable "tag_name" {
+  type        = string
+  description = "Azure Web App Name"
+ default: 'latest'
+}
+
+
+
+
 # ACR
 resource "azurerm_container_registry" "rahulacr" {
   name                = "rahultestwebapp04acr"
@@ -76,7 +93,7 @@ resource "azurerm_app_service_plan" "service-plan" {
 
 # web App 2
 resource "azurerm_app_service" "app-service" {
-  name = "rahultestwebapp08"
+  name = var.web_app_name
   location = data.azurerm_resource_group.rahulrg.location
   resource_group_name = data.azurerm_resource_group.rahulrg.name
   app_service_plan_id = azurerm_app_service_plan.service-plan.id
@@ -91,7 +108,7 @@ resource "azurerm_app_service" "app-service" {
   }
   # Configure Docker Image to load on start
   site_config {
-    linux_fx_version = "DOCKER|${rahultestwebapp04acr}:${demo}"
+    linux_fx_version = "DOCKER|${var.registry_name}:${var.tag_name}"
     always_on        = "true"
   }
   identity {
