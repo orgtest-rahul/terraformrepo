@@ -93,7 +93,7 @@ resource "azurerm_app_service" "app-service" {
   }
   # Configure Docker Image to load on start
   site_config {
-    linux_fx_version = "DOCKER|rahultestwebapp04acr:latest"
+    linux_fx_version = "DOCKER|rahultestwebapp04acr.azurecr.io/demo:latest"
     always_on        = "true"
   }
   identity {
@@ -108,10 +108,5 @@ output "app_service_name" {
 output "app_service_default_hostname" {
   value = "https://${azurerm_app_service.app-service.default_site_hostname}"
 }
-
-
-
-
-
 
 
