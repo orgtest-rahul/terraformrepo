@@ -9,15 +9,11 @@ terraform {
   backend "azurerm" {
     resource_group_name  = "Devops_Kochi"
     storage_account_name = "rahulstorageaccount02"
-    container_name       = "blobcontainer03"
+    container_name       = "blobecontainer4"
     key                  = "terraform.tfstate"
   }
 }
 
-variable "web_app_name" {
-  type        = string
-  description = "rahultestwebapp08"
-}
 
 #Resource group
 data "azurerm_resource_group" "rahulrg" {
@@ -57,11 +53,13 @@ resource "azurerm_app_service" "rahulappservice" {
 
 }
 
-
-
-
-
-
-
+# ACR
+resource "azurerm_container_registry" "rahulacr" {
+  name                = "rahultestwebapp04acr"
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
+  location            = data.azurerm_resource_group.rahulrg.location
+  sku                 = "Standard" 
+  admin_enabled       = true
+}
 
 
