@@ -1,3 +1,9 @@
+
+provider "azurerm" {
+  version = "2.0.0"
+  features {}
+}
+
 terraform {
   backend "azurerm" {
     resource_group_name  = "Devops_Kochi"
@@ -6,14 +12,6 @@ terraform {
     key                  = "terraform.tfstate"
   }
 }
-
-
-provider "azurerm" {
-  version = "~>2.0"
-  skip_provider_registration = true
-  features {}
-}
-
 
 data "azurerm_resource_group" "rahulrg" {
   name = "Devops_Kochi"
