@@ -1,8 +1,7 @@
 
 provider "azurerm" {
-  skip_provider_registration = "true"
-  version = "~>2.0"  
-  features {}
+  version = "2.0.0"
+   features {}
 }
 
 terraform {
@@ -22,7 +21,8 @@ resource "azurerm_app_service_plan" "rahulappserviceplan" {
   name                = "rahul-appserviceplan-1"
   location            = data.azurerm_resource_group.rahulrg.location
   resource_group_name = data.azurerm_resource_group.rahulrg.name
-
+  kind                = "Linux"
+  reserved            = "true"
   sku {
     tier = "Standard"
     size = "S1"
@@ -37,6 +37,7 @@ resource "azurerm_app_service" "rahulappservice" {
   site_config {
     scm_type                 = "LocalGit"
     linux_fx_version         = "TOMCAT|9.0-java11"
+    
   }
 
   app_settings = {
