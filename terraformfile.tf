@@ -52,25 +52,6 @@ resource "azurerm_app_service" "rahulappservice" {
 
 }
 
-variable "web_app_name" {
-  type        = string
-  description = "rahultestwebapp08"
-}
-variable "registry_name" {
-  type        = string
-  description = "rahultestwebapp04acr"
-}
-variable "tag_name" {
-  type        = string
-  description = "latest"
-}
-
-
-
-
-
-
-
 
 
 
