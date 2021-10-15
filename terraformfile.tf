@@ -14,7 +14,7 @@ terraform {
   }
 }
 
-// Resource group
+// Resourcegroup
 data "azurerm_resource_group" "rahulrg" {
   name = "Devops_Kochi"
 }
