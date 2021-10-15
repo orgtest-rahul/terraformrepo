@@ -76,6 +76,32 @@ resource "azurerm_app_service_plan" "service-plan" {
 }
 
 
+# web App 2
+resource "azurerm_app_service" "app-service" {
+  name = "rahultestwebapp08"
+  location = data.azurerm_resource_group.rahulrg.location
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
+  app_service_plan_id = azurerm_app_service_plan.service-plan.id
+  app_settings = {
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
+    
+    # Settings for private Container Registires  
+    DOCKER_REGISTRY_SERVER_URL      = "https://${azurerm_container_registry.rahulacr.login_server}"
+    DOCKER_REGISTRY_SERVER_USERNAME = azurerm_container_registry.rahulacr.admin_username
+    DOCKER_REGISTRY_SERVER_PASSWORD = azurerm_container_registry.rahulacr.admin_password
+  
+  }
+  # Configure Docker Image to load on start
+  site_config {
+    linux_fx_version = "DOCKER|rahultestwebapp04acr:latest"
+    always_on        = "true"
+  }
+  identity {
+    type = "SystemAssigned"
+  }
+}
+
+
 
 
 
