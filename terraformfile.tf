@@ -30,7 +30,7 @@ resource "azurerm_app_service_plan" "rahulappserviceplan" {
   }
 }
 resource "azurerm_app_service" "rahulappservice" {
-  name                = "rahul-app-service-1"
+  name                = "rahultestwebapp04"
   location            = data.azurerm_resource_group.rahulrg.location
   resource_group_name = data.azurerm_resource_group.rahulrg.name
   app_service_plan_id = azurerm_app_service_plan.rahulappserviceplan.id
@@ -46,6 +46,25 @@ resource "azurerm_app_service" "rahulappservice" {
   }
 
 
+}
+
+resource "azurerm_container_registry" "rahulacr" {
+  name                = "rahultestwebapp04acr"
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
+  location            = data.azurerm_resource_group.rahulrg.location
+  sku                 = "Standard" 
+  admin_enabled       = false
+  georeplications = [
+    {
+      location                = "East US"
+      zone_redundancy_enabled = true
+      tags                    = {}
+    },
+    {
+      location                = "westeurope"
+      zone_redundancy_enabled = true
+      tags                    = {}
+  }]
 }
 
 
