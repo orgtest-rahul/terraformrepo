@@ -62,8 +62,7 @@ variable "registry_name" {
 }
 variable "tag_name" {
   type        = string
-  description = "Azure Web App Name"
- default: 'latest'
+  description = "latest"
 }
 
 
@@ -123,5 +122,10 @@ output "app_service_name" {
 output "app_service_default_hostname" {
   value = "https://${azurerm_app_service.app-service.default_site_hostname}"
 }
+
+
+
+
+
 
 
