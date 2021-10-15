@@ -14,12 +14,12 @@ terraform {
   }
 }
 
-#Resource group
+// Resource group
 data "azurerm_resource_group" "rahulrg" {
   name = "Devops_Kochi"
 }
 
-#Appservice plan for web app 1
+// Appservice plan for web app 1
 resource "azurerm_app_service_plan" "rahulappserviceplan" {
   name                = "rahul-appserviceplan-1"
   location            = data.azurerm_resource_group.rahulrg.location
@@ -32,7 +32,7 @@ resource "azurerm_app_service_plan" "rahulappserviceplan" {
   }
 }
 
-#web App 1
+// web App 1
 resource "azurerm_app_service" "rahulappservice" {
   name                = "rahultestwebapp04"
   location            = data.azurerm_resource_group.rahulrg.location
@@ -51,5 +51,41 @@ resource "azurerm_app_service" "rahulappservice" {
 
 
 }
+
+variable "web_app_name" {
+  type        = string
+  description = "rahultestwebapp08"
+}
+variable "registry_name" {
+  type        = string
+  description = "rahultestwebapp04acr"
+}
+variable "tag_name" {
+  type        = string
+  description = "latest"
+}
+
+# ACR
+resource "azurerm_container_registry" "rahulacr" {
+  name                = "rahultestwebapp04acr"
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
+  location            = data.azurerm_resource_group.rahulrg.location
+  sku                 = "Standard" 
+  admin_enabled       = true
+}
+
+# Service plan for web app 2
+resource "azurerm_app_service_plan" "service-plan" {
+  name = "rahul-appserviceplan-2"
+  location = data.azurerm_resource_group.rahulrg.location
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
+  kind = "Linux"
+  reserved = true  
+  sku {
+    tier = "Standard"
+    size = "S1"
+  }  
+}
+
 
 
