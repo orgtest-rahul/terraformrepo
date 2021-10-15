@@ -9,7 +9,7 @@ terraform {
   backend "azurerm" {
     resource_group_name  = "Devops_Kochi"
     storage_account_name = "rahul1storageaccount"
-    container_name       = "blobcontainer"
+    container_name       = "blobcontainer2"
     key                  = "terraform.tfstate"
   }
 }
