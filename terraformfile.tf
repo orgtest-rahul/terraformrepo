@@ -53,18 +53,7 @@ resource "azurerm_container_registry" "rahulacr" {
   resource_group_name = data.azurerm_resource_group.rahulrg.name
   location            = data.azurerm_resource_group.rahulrg.location
   sku                 = "Standard" 
-  admin_enabled       = false
-  georeplications = [
-    {
-      location                = "East US"
-      zone_redundancy_enabled = "true"
-      tags                    = {}
-    },
-    {
-      location                = "westeurope"
-      zone_redundancy_enabled = "true"
-      tags                    = {}
-  }]
+  admin_enabled       = true
 }
 
 
