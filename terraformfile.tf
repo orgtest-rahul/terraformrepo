@@ -62,4 +62,22 @@ resource "azurerm_container_registry" "rahulacr" {
   admin_enabled       = true
 }
 
+# Service plan for web app 2
+resource "azurerm_app_service_plan" "service-plan" {
+  name = "rahul-appserviceplan-2"
+  location = data.azurerm_resource_group.rahulrg.location
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
+  kind = "Linux"
+  reserved = true  
+  sku {
+    tier = "Standard"
+    size = "S1"
+  }  
+}
+
+
+
+
+
+
 
