@@ -14,6 +14,11 @@ terraform {
   }
 }
 
+variable "web_app_name" {
+  type        = string
+  description = "rahultestwebapp08"
+}
+
 #Resource group
 data "azurerm_resource_group" "rahulrg" {
   name = "Devops_Kochi"
