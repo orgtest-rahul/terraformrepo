@@ -37,6 +37,8 @@ resource "azurerm_app_service" "rahulappservice" {
   site_config {
     dotnet_framework_version = "v4.0"
     scm_type                 = "LocalGit"
+    java_version           = "11"
+    linux_fx_version = "TOMCAT|9.0-java11"
   }
 
   app_settings = {
