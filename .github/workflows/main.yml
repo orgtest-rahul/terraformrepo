@@ -25,8 +25,5 @@ jobs:
       - name: Step -3 Terraform Init
         run: terraform init
 
-      - name: Step -4 Terraform Format
-        run: terraform fmt -check
-
-      - name: Step -5 Terraform Plan
+      - name: Step -4 Terraform Plan
         run: terraform plan
