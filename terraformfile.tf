@@ -57,12 +57,12 @@ resource "azurerm_container_registry" "rahulacr" {
   georeplications = [
     {
       location                = "East US"
-      zone_redundancy_enabled = true
+      zone_redundancy_enabled = "true"
       tags                    = {}
     },
     {
       location                = "westeurope"
-      zone_redundancy_enabled = true
+      zone_redundancy_enabled = "true"
       tags                    = {}
   }]
 }
