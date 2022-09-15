@@ -1,6 +1,6 @@
 name: Terraform Plan
 
-on:
+# on:
   #  push:
   #   branches:
   #     - main
