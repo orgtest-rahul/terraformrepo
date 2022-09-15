@@ -3,7 +3,7 @@ name: Terraform Plan
 on:
    push:
     branches:
-      # - main
+       - test
 
 jobs:
   terraform:
