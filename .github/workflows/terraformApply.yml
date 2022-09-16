@@ -26,5 +26,5 @@ jobs:
       - name: Step -4 Terraform Plan
         run: terraform plan
 
-      # - name: Step -5 Terraform Apply
-      #   run: terraform apply -auto-approve
+      - name: Step -5 Terraform Apply
+        run: terraform apply -auto-approve
