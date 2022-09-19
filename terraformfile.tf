@@ -20,9 +20,21 @@ provider "azurerm" {
 
 
 
-resource "azurerm_resource_group" "rahulrg" {
+resource "azurerm_resource_group" "rahulrgname" {
   name     = "rah-rg1"
   location = "North Europe"
 }
 
+
+resource "azurerm_storage_account" "storageAccount1" {
+  name                     = "storageaccountname"
+  resource_group_name      = azurerm_resource_group.rahulrgname.name
+  location                 = azurerm_resource_group.rahulrgname.location
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
+
+  tags = {
+    environment = "staging"
+  }
+}
 
