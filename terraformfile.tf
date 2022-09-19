@@ -28,7 +28,7 @@ resource "azurerm_resource_group" "rahulrgname" {
 
 resource "azurerm_storage_account" "storageccountname" {
   name                     = "storageaccountra"
-  resource_group_name      = rah-rg1
+  resource_group_name      = "rah-rg1"
   location                 = "North Europe"
   account_tier             = "Standard"
   account_replication_type = "GRS"
