@@ -50,5 +50,5 @@ resource "azurerm_storage_blob" "maintf" {
   storage_account_name   = azurerm_storage_account.storageccountname.name
   storage_container_name = azurerm_storage_container.storagecontainer.name
   type                   = "Block"
-  source                 = "readme.md"
+  source                 = "README.md"
 }
