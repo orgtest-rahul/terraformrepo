@@ -25,30 +25,37 @@ resource "azurerm_resource_group" "rahulrgname" {
   location = "North Europe"
 }
 
+resource "azurerm_network_security_group" "nsg" {
+  name                = "example-security-group"
+  location            = azurerm_resource_group.rahulrgname.location
+  resource_group_name = azurerm_resource_group.rahulrgname.name
+  depends_on = [
+    azurerm_resource_group.rahulrgname
+  ]
+}
 
-resource "azurerm_storage_account" "storageccountname" {
-  name                     = "storageaccountra"
-  resource_group_name      =  azurerm_resource_group.rahulrgname.name  
-  location                 = azurerm_resource_group.rahulrgname.location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
+resource "azurerm_virtual_network" "VirtualNetwork" {
+  name                = "example-network"
+  location            = azurerm_resource_group.rahulrgname.location
+  resource_group_name = azurerm_resource_group.rahulrgname.name
+  address_space       = ["10.0.0.0/16"]
+  dns_servers         = ["10.0.0.4", "10.0.0.5"]
+
+  subnet {
+    name           = "subnet1"
+    address_prefix = "10.0.1.0/24"
+  }
+
+  subnet {
+    name           = "subnet2"
+    address_prefix = "10.0.2.0/24"
+    security_group = azurerm_network_security_group.nsg.id
+  }
 
   tags = {
     environment = "staging"
   }
-}
-
-resource "azurerm_storage_container" "storagecontainer" {
-  name                  = "radatacontainer"
-  storage_account_name  = azurerm_storage_account.storageccountname.name
-  container_access_type = "blob"
-}
-
-
-resource "azurerm_storage_blob" "maintf" {
-  name                   = "readme"
-  storage_account_name   = azurerm_storage_account.storageccountname.name
-  storage_container_name = azurerm_storage_container.storagecontainer.name
-  type                   = "Block"
-  source                 = "README.md"
+  depends_on = [
+    azurerm_network_security_group.nsg
+  ]
 }
