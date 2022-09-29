@@ -41,64 +41,69 @@ locals {
 
 }
 
-resource "azurerm_resource_group" "rahulrgname" {
-  name     = local.resource_group_name
-  location = local.resource_group_location
+# resource "azurerm_resource_group" "rahulrgname" {
+#   name     = local.resource_group_name
+#   location = local.resource_group_location
+# }
+
+
+data "azurerm_resource_group" "rahulrgname" {
+  name = local.resource_group_name
 }
 
 resource "azurerm_network_security_group" "nsg" {
   name                = "ra-network-security-group"
-  location            = local.resource_group_location
-  resource_group_name = local.resource_group_name
+  location            = data.azurerm_resource_group.rahulrgname.location
+  resource_group_name = data.azurerm_resource_group.rahulrgname.name
   depends_on = [
     azurerm_resource_group.rahulrgname
   ]
 }
 
-resource "azurerm_virtual_network" "VirtualNetwork" {
-  name                = local.virtual_network.name
-  location            = azurerm_resource_group.rahulrgname.location
-  resource_group_name = azurerm_resource_group.rahulrgname.name
-  address_space       = local.virtual_network.address_space
-  dns_servers         = local.virtual_network.dns_servers
+# resource "azurerm_virtual_network" "VirtualNetwork" {
+#   name                = local.virtual_network.name
+#   location            = azurerm_resource_group.rahulrgname.location
+#   resource_group_name = azurerm_resource_group.rahulrgname.name
+#   address_space       = local.virtual_network.address_space
+#   dns_servers         = local.virtual_network.dns_servers
 
-  subnet {
-    name           = local.subnets[0].name
-    address_prefix = local.subnets[0].address_prefix
-  }
+#   subnet {
+#     name           = local.subnets[0].name
+#     address_prefix = local.subnets[0].address_prefix
+#   }
 
-  tags = {
-    environment = "staging"
-  }
-  depends_on = [
-    azurerm_network_security_group.nsg
-  ]
-}
+#   tags = {
+#     environment = "staging"
+#   }
+#   depends_on = [
+#     azurerm_network_security_group.nsg
+#   ]
+# }
 
-resource "azurerm_subnet" "subnet2" {
-  name                 = local.subnets[1].name
-  resource_group_name  = azurerm_resource_group.rahulrgname.name
-  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
-  address_prefixes     = [local.subnets[1].address_prefix]
+# resource "azurerm_subnet" "subnet2" {
+#   name                 = local.subnets[1].name
+#   resource_group_name  = azurerm_resource_group.rahulrgname.name
+#   virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
+#   address_prefixes     = [local.subnets[1].address_prefix]
 
-  depends_on = [
-    azurerm_virtual_network.VirtualNetwork
-  ]
-}
+#   depends_on = [
+#     azurerm_virtual_network.VirtualNetwork
+#   ]
+# }
 
-resource "azurerm_network_interface" "appnetworkinterface" {
-  name                = "ra-appnetworkinterface"
-  location            = local.resource_group_location
-  resource_group_name = local.resource_group_name
+# resource "azurerm_network_interface" "appnetworkinterface" {
+#   name                = "ra-appnetworkinterface"
+#   location            = local.resource_group_location
+#   resource_group_name = local.resource_group_name
 
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet2.id
-    private_ip_address_allocation = "Dynamic"
-  }
+#   ip_configuration {
+#     name                          = "internal"
+#     subnet_id                     = azurerm_subnet.subnet2.id
+#     private_ip_address_allocation = "Dynamic"
+#   }
 
-    depends_on = [
-    azurerm_subnet.subnet2
-  ]
+#     depends_on = [
+#     azurerm_subnet.subnet2
+#   ]
 
-}
+# }
