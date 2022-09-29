@@ -58,25 +58,25 @@ resource "azurerm_network_security_group" "nsg" {
 
 }
 
-# resource "azurerm_virtual_network" "VirtualNetwork" {
-#   name                = local.virtual_network.name
-#   location            = azurerm_resource_group.rahulrgname.location
-#   resource_group_name = azurerm_resource_group.rahulrgname.name
-#   address_space       = local.virtual_network.address_space
-#   dns_servers         = local.virtual_network.dns_servers
+resource "azurerm_virtual_network" "VirtualNetwork" {
+  name                = local.virtual_network.name
+  location            = data.azurerm_resource_group.rahulrgname.location
+  resource_group_name = data.azurerm_resource_group.rahulrgname.name
+  address_space       = local.virtual_network.address_space
+  dns_servers         = local.virtual_network.dns_servers
 
-#   subnet {
-#     name           = local.subnets[0].name
-#     address_prefix = local.subnets[0].address_prefix
-#   }
+  subnet {
+    name           = local.subnets[0].name
+    address_prefix = local.subnets[0].address_prefix
+  }
 
-#   tags = {
-#     environment = "staging"
-#   }
-#   depends_on = [
-#     azurerm_network_security_group.nsg
-#   ]
-# }
+  tags = {
+    environment = "staging"
+  }
+  depends_on = [
+    azurerm_network_security_group.nsg
+  ]
+}
 
 # resource "azurerm_subnet" "subnet2" {
 #   name                 = local.subnets[1].name
