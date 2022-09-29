@@ -81,19 +81,19 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
   ]
 }
 
-# resource "azurerm_network_interface" "appnetworkinterface" {
-#   name                = "appnetworkinterface"
-#   location            = local.resource_group_location
-#   resource_group_name = local.resource_group_name
+resource "azurerm_network_interface" "appnetworkinterface" {
+  name                = "appnetworkinterface"
+  location            = local.resource_group_location
+  resource_group_name = local.resource_group_name
 
-#   ip_configuration {
-#     name                          = "internal"
-#     subnet_id                     = azurerm_subnet.local.subnets[1].name.id
-#     private_ip_address_allocation = "Dynamic"
-#   }
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.local.subnets[0].name.id
+    private_ip_address_allocation = "Dynamic"
+  }
 
-#     depends_on = [
-#     azurerm_virtual_network.VirtualNetwork
-#   ]
+    depends_on = [
+    azurerm_virtual_network.VirtualNetwork
+  ]
 
-# }
+}
