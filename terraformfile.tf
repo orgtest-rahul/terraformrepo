@@ -67,12 +67,6 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
     address_prefix = local.subnets[0].address_prefix
   }
 
-  subnet {
-    name           = local.subnets[1].name
-    address_prefix = local.subnets[1].address_prefix
-    security_group = azurerm_network_security_group.nsg.id
-  }
-
   tags = {
     environment = "staging"
   }
@@ -81,19 +75,26 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
   ]
 }
 
-resource "azurerm_network_interface" "appnetworkinterface" {
-  name                = "appnetworkinterface"
-  location            = local.resource_group_location
-  resource_group_name = local.resource_group_name
-
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.local.subnets[0].name.id
-    private_ip_address_allocation = "Dynamic"
-  }
-
-    depends_on = [
-    azurerm_virtual_network.VirtualNetwork
-  ]
-
+resource "azurerm_subnet" "subnet2" {
+  name                 = local.subnets[1].name
+  resource_group_name  = azurerm_resource_group.rahulrgname.name
+  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
+  address_prefixes     = local.subnets[1].address_prefix
 }
+
+# resource "azurerm_network_interface" "appnetworkinterface" {
+#   name                = "appnetworkinterface"
+#   location            = local.resource_group_location
+#   resource_group_name = local.resource_group_name
+
+#   ip_configuration {
+#     name                          = "internal"
+#     subnet_id                     = azurerm_subnet.local.subnets[1].name.id
+#     private_ip_address_allocation = "Dynamic"
+#   }
+
+#     depends_on = [
+#     azurerm_virtual_network.VirtualNetwork
+#   ]
+
+# }
