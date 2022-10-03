@@ -9,11 +9,11 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
 
-    # env:
-    #   ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
-    #   ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
-    #   ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
-    #   ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
+    env:
+      ARM_CLIENT_ID: 2722272e-a7c2-4475-bfe5-157ae43ac7c3 #${{secrets.TF_ARM_CLIENT_ID}}
+      ARM_CLIENT_SECRET: D_a8Q~9LYmKvCUFzRd4.JiUSmaJQGWfKIDIkNciK #${{secrets.TF_ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: da62005e-ffbb-483c-8af3-929e423ed9ce #${{secrets.TF_ARM_SUBSCRIPTION_ID}}
+      ARM_TENANT_ID: bd5c6713-7399-4b31-be79-78f2d078e543 #${{secrets.TF_ARM_TENANT_ID}}
 
     steps:
       - name: Step -1 Checkout 
