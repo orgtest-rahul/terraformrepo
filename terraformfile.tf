@@ -22,7 +22,7 @@ terraform {
   backend "azurerm" {
     resource_group_name  = "rah-rg1"
     storage_account_name = "rateststorageaccount"
-    container_name       = "tfstate"
+    container_name       = "ra-datacontainer"
     key                  = "stage.terraform.tfstate"
   }
 }
