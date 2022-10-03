@@ -18,15 +18,6 @@ provider "azurerm" {
   tenant_id       = "bd5c6713-7399-4b31-be79-78f2d078e543"
 }
 
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "rah-rg1"
-    storage_account_name = "rateststorageaccount"
-    container_name       = "tfstate"
-    key                  = "stage.terraform.tfstate"
-  }
-}
-
 
 
 locals {
