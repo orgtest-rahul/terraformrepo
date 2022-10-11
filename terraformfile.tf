@@ -20,7 +20,7 @@ resource "azurerm_resource_group" "rahulrgname" {
 
 
 resource "azurerm_storage_account" "storageccountname" {
-  name                     = "rahul_storageaccount"
+  name                     = "rahulstorageaccount"
   resource_group_name      = azurerm_resource_group.rahulrgname.name  
   location                 = azurerm_resource_group.rahulrgname.location
   account_tier             = "Standard"
@@ -36,7 +36,7 @@ resource "azurerm_storage_account" "storageccountname" {
 }
 
 resource "azurerm_storage_container" "storagecontainer" {
-  name                  = "rahul_datacontainer"
+  name                  = "rahuldatacontainer"
   storage_account_name  = azurerm_storage_account.storageccountname.name
   container_access_type = "blob"
   depends_on = [
