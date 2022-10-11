@@ -13,9 +13,9 @@ provider "azurerm" {
  
 }
 
-resource "azurerm_resource_group" "rahulrgname" {
-  name     = "Devops_kochi"
-  location = "West Europe"
+
+data "azurerm_resource_group" "rahulrgname" {
+  name = "Devops_kochi"
 }
 
 
