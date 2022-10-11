@@ -16,7 +16,7 @@ provider "azurerm" {
 terraform {
   backend "azurerm" {
     resource_group_name  = "Devops_kochi"
-    storage_account_name = "rahuldevopsstorageaccount"
+    storage_account_name = "rahuldevstorageaccount"
     container_name       = "rahuldatacontainer"
     key                  = "stage.terraform.tfstate"
   }
