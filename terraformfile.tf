@@ -21,18 +21,15 @@ data "azurerm_resource_group" "rahulrgname" {
 
 resource "azurerm_storage_account" "storageccountname" {
   name                     = "rahulstorageaccount"
-  resource_group_name      = azurerm_resource_group.rahulrgname.name  
-  location                 = azurerm_resource_group.rahulrgname.location
+  resource_group_name      = data.azurerm_resource_group.rahulrgname.name  
+  location                 = data.azurerm_resource_group.rahulrgname.location
   account_tier             = "Standard"
   account_replication_type = "GRS"
 
   tags = {
     environment = "staging"
-  }
-  
-  depends_on = [
-    azurerm_resource_group.rahulrgname
-  ]
+  }  
+
 }
 
 resource "azurerm_storage_container" "storagecontainer" {
