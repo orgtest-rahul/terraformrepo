@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ARM_CLIENT_ID: 2722272e-a7c2-4475-bfe5-157ae43ac7c3 #${{secrets.TF_ARM_CLIENT_ID}}
-      ARM_CLIENT_SECRET: D_a8Q~9LYmKvCUFzRd4.JiUSmaJQGWfKIDIkNciK #${{secrets.TF_ARM_CLIENT_SECRET}}
-      ARM_SUBSCRIPTION_ID: da62005e-ffbb-483c-8af3-929e423ed9ce #${{secrets.TF_ARM_SUBSCRIPTION_ID}}
-      ARM_TENANT_ID: bd5c6713-7399-4b31-be79-78f2d078e543 #${{secrets.TF_ARM_TENANT_ID}}
-
+      ARM_CLIENT_ID: 8b3b07d1-0e57-41b9-8932-8ef7062d421f
+      ARM_CLIENT_SECRET: 2C4.Lk5Orj98TYq1nUwk4e.vxY8_O_-.~d
+      ARM_SUBSCRIPTION_ID: 34a6465c-2a6e-41b9-89b8-7617e5062ed4
+      ARM_TENANT_ID: 3c8ea0e4-127c-4a02-ac65-58830e4ac608
+      
     steps:
       - name: Step -1 Checkout 
         uses: actions/checkout@v2
