@@ -109,3 +109,10 @@ resource "azurerm_network_interface" "appnetworkinterface" {
   ]
 
 }
+
+# Output the id
+output "name" {
+  
+  value = azurerm_subnet.subnet2.id
+
+}
