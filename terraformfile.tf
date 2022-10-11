@@ -94,7 +94,7 @@ resource "azurerm_subnet" "subnet2" {
 }
 
 resource "azurerm_network_interface" "appnetworkinterface" {
-  name                = "rahul-appnetworkinterface"
+  name                = "rahulappnetworkinterface"
   location            = local.resource_group_location
   resource_group_name = local.resource_group_name
 
