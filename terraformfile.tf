@@ -93,19 +93,19 @@ resource "azurerm_subnet" "subnet2" {
   ]
 }
 
-# resource "azurerm_network_interface" "appnetworkinterface" {
-#   name                = "ra-appnetworkinterface"
-#   location            = local.resource_group_location
-#   resource_group_name = local.resource_group_name
+resource "azurerm_network_interface" "appnetworkinterface" {
+  name                = "rahul-appnetworkinterface"
+  location            = local.resource_group_location
+  resource_group_name = local.resource_group_name
 
-#   ip_configuration {
-#     name                          = "internal"
-#     subnet_id                     = azurerm_subnet.subnet2.id
-#     private_ip_address_allocation = "Dynamic"
-#   }
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.subnet2.id
+    private_ip_address_allocation = "Dynamic"
+  }
 
-#     depends_on = [
-#     azurerm_subnet.subnet2
-#   ]
+    depends_on = [
+    azurerm_subnet.subnet2
+  ]
 
-# }
+}
