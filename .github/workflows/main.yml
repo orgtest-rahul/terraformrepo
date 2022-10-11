@@ -3,7 +3,7 @@ name: Terraform Plan
 on:
    push:
     branches:
-       - dev
+       - dev_1
 
 jobs:
   terraform:
