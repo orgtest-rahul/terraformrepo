@@ -20,7 +20,7 @@ data "azurerm_resource_group" "rahulrgname" {
 
 
 resource "azurerm_storage_account" "storageccountname" {
-  name                     = "rahuldevopsstorageaccount"
+  name                     = "rahuldevstorageaccount"
   resource_group_name      = data.azurerm_resource_group.rahulrgname.name  
   location                 = data.azurerm_resource_group.rahulrgname.location
   account_tier             = "Standard"
