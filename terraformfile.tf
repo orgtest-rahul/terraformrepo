@@ -1,9 +1,8 @@
-
 terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = "=3.30.0"
     }
   }
 }
@@ -87,38 +86,3 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
     azurerm_network_security_group.nsg
   ]
 }
-
--- resource "azurerm_subnet" "subnet2" {
---   name                 = local.subnets[1].name
---   resource_group_name  = data.azurerm_resource_group.rahulrgname.name
---   virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
---   address_prefixes     = [local.subnets[1].address_prefix]
-
---   depends_on = [
---     azurerm_virtual_network.VirtualNetwork
---   ]
--- }
-
--- resource "azurerm_network_interface" "appnetworkinterface" {
---   name                = "rahulappnetworkinterface"
---   location            = local.resource_group_location
---   resource_group_name = local.resource_group_name
-
---   ip_configuration {
---     name                          = "internal"
---     subnet_id                     = azurerm_subnet.subnet2.id
---     private_ip_address_allocation = "Dynamic"
---   }
-
---     depends_on = [
---     azurerm_subnet.subnet2
---   ]
-
--- }
-
--- # Output the id
--- output "name" {
-  
---   value = azurerm_subnet.subnet2.id
-
--- }
