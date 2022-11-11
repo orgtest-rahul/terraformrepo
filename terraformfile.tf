@@ -77,5 +77,27 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
   ]
 }
 
+resource "azurerm_subnet" "subnetA" {
+  name                 = local.subnets[0].name
+  resource_group_name  = data.azurerm_resource_group.rahulrgname.name
+  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
+  address_prefixes     = [local.subnets[0].address_prefix]
+
+  depends_on = [
+    azurerm_virtual_network.VirtualNetwork
+  ]
+}
+
+resource "azurerm_subnet" "subnetB" {
+  name                 = local.subnets[1].name
+  resource_group_name  = data.azurerm_resource_group.rahulrgname.name
+  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
+  address_prefixes     = [local.subnets[1].address_prefix]
+
+  depends_on = [
+    azurerm_virtual_network.VirtualNetwork
+  ]
+}
+
 
 
