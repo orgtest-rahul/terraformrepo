@@ -75,7 +75,7 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
 
   subnet {
     name           = local.subnets[1].name
-    address_prefix = local.subnets[2].address_prefix
+    address_prefix = local.subnets[1].address_prefix
   }
 
 
