@@ -69,6 +69,17 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
   address_space       = local.virtual_network.address_space
   dns_servers         = local.virtual_network.dns_servers
 
+  subnet   {
+    name              = local.subnets[0].name
+    address_prefix    = local.subnets[0].address_prefix
+  }
+
+ subnet   {
+    name              = local.subnets[1].name
+    address_prefix    = local.subnets[1].address_prefix
+  }
+
+
   tags = {
     environment = "staging"
   }
@@ -77,50 +88,8 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
   ]
 }
 
-resource "azurerm_subnet" "subnetA" {
-  name                 = local.subnets[0].name
-  resource_group_name  = data.azurerm_resource_group.rahulrgname.name
-  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
-  address_prefixes     = [local.subnets[0].address_prefix]
-
-  depends_on = [
-    azurerm_virtual_network.VirtualNetwork
-  ]
-}
-
-resource "azurerm_subnet" "subnetB" {
-  name                 = local.subnets[1].name
-  resource_group_name  = data.azurerm_resource_group.rahulrgname.name
-  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
-  address_prefixes     = [local.subnets[1].address_prefix]
-
-  depends_on = [
-    azurerm_virtual_network.VirtualNetwork
-  ]
-}
-
-
-
-resource "azurerm_network_interface" "appnetworkinterface" {
-  name                = "rahulappnetworkinterface"
-  location            = local.resource_group_location
-  resource_group_name = local.resource_group_name
-
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnetA.id
-    private_ip_address_allocation = "Dynamic"
-  }
-
-    depends_on = [
-    azurerm_subnet.subnetA
-  ]
-
-}
-
-# Output the id
-output "subnetA-ID" {
+output "subnets" {
   
-  value = azurerm_subnet.subnetA.id
-
+  value = azurerm_virtual_network.VirtualNetwork.subnet
+  
 }
