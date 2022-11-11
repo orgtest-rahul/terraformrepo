@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = "=3.30.0"
     }
   }
 }
@@ -34,12 +34,12 @@ locals {
 
   subnets=[
     {
-      name="subnet1"
-      address_prefix = "10.0.1.0/24"
+      name="subnetA"
+      address_prefix = "10.0.0.0/24"
     },
     {
-      name           = "subnet2"
-      address_prefix = "10.0.2.0/24"
+      name           = "subnetB"
+      address_prefix = "10.0.1.0/24"
     }
   ]
 
@@ -74,6 +74,12 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
     address_prefix = local.subnets[0].address_prefix
   }
 
+  subnet {
+    name           = local.subnets[1].name
+    address_prefix = local.subnets[2].address_prefix
+  }
+
+
   tags = {
     environment = "staging"
   }
@@ -82,37 +88,37 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
   ]
 }
 
-resource "azurerm_subnet" "subnet2" {
-  name                 = local.subnets[1].name
-  resource_group_name  = data.azurerm_resource_group.rahulrgname.name
-  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
-  address_prefixes     = [local.subnets[1].address_prefix]
+-- resource "azurerm_subnet" "subnet2" {
+--   name                 = local.subnets[1].name
+--   resource_group_name  = data.azurerm_resource_group.rahulrgname.name
+--   virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
+--   address_prefixes     = [local.subnets[1].address_prefix]
 
-  depends_on = [
-    azurerm_virtual_network.VirtualNetwork
-  ]
-}
+--   depends_on = [
+--     azurerm_virtual_network.VirtualNetwork
+--   ]
+-- }
 
-resource "azurerm_network_interface" "appnetworkinterface" {
-  name                = "rahulappnetworkinterface"
-  location            = local.resource_group_location
-  resource_group_name = local.resource_group_name
+-- resource "azurerm_network_interface" "appnetworkinterface" {
+--   name                = "rahulappnetworkinterface"
+--   location            = local.resource_group_location
+--   resource_group_name = local.resource_group_name
 
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet2.id
-    private_ip_address_allocation = "Dynamic"
-  }
+--   ip_configuration {
+--     name                          = "internal"
+--     subnet_id                     = azurerm_subnet.subnet2.id
+--     private_ip_address_allocation = "Dynamic"
+--   }
 
-    depends_on = [
-    azurerm_subnet.subnet2
-  ]
+--     depends_on = [
+--     azurerm_subnet.subnet2
+--   ]
 
-}
+-- }
 
-# Output the id
-output "name" {
+-- # Output the id
+-- output "name" {
   
-  value = azurerm_subnet.subnet2.id
+--   value = azurerm_subnet.subnet2.id
 
-}
+-- }
