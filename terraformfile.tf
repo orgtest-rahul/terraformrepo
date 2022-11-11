@@ -101,3 +101,20 @@ resource "azurerm_subnet" "subnetB" {
 
 
 
+resource "azurerm_network_interface" "appnetworkinterface" {
+  name                = "rahulappnetworkinterface"
+  location            = local.resource_group_location
+  resource_group_name = local.resource_group_name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.subnetA.id
+    private_ip_address_allocation = "Dynamic"
+  }
+
+    depends_on = [
+    azurerm_subnet.subnetA
+  ]
+
+}
+
