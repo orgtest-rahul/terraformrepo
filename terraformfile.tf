@@ -1,3 +1,4 @@
+
 terraform {
   required_providers {
     azurerm = {
@@ -68,17 +69,6 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
   address_space       = local.virtual_network.address_space
   dns_servers         = local.virtual_network.dns_servers
 
-  subnet {
-    name           = local.subnets[0].name
-    address_prefix = local.subnets[0].address_prefix
-  }
-
-  subnet {
-    name           = local.subnets[1].name
-    address_prefix = local.subnets[1].address_prefix
-  }
-
-
   tags = {
     environment = "staging"
   }
@@ -86,3 +76,26 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
     azurerm_network_security_group.nsg
   ]
 }
+
+resource "azurerm_subnet" "subnetA" {
+  name                 = local.subnets[0].name
+  resource_group_name  = data.azurerm_resource_group.rahulrgname.name
+  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
+  address_prefixes     = [local.subnets[0].address_prefix]
+
+  depends_on = [
+    azurerm_virtual_network.VirtualNetwork
+  ]
+}
+
+resource "azurerm_subnet" "subnetB" {
+  name                 = local.subnets[1].name
+  resource_group_name  = data.azurerm_resource_group.rahulrgname.name
+  virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
+  address_prefixes     = [local.subnets[1].address_prefix]
+
+  depends_on = [
+    azurerm_virtual_network.VirtualNetwork
+  ]
+}
+
