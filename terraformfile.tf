@@ -162,7 +162,7 @@ resource "azurerm_subnet_network_security_group_association" "rahulnsgassociatio
 
 
 resource "azurerm_windows_virtual_machine" "rahulvm" {
-  name                = "rahulwindows-machine"
+  name                = "rahulwvd"
   resource_group_name = local.resource_group_name
   location            = local.resource_group_location
   size                = "Standard_D2S_V3"
