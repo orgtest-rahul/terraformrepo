@@ -153,9 +153,6 @@ resource "azurerm_public_ip" "appip" {
     environment = "staging"
   }
 
-  depends_on = [
-    azurerm_resource_group.rahulrgname
-  ]
 }
 
 resource "azurerm_subnet_network_security_group_association" "rahulnsgassociation" {
