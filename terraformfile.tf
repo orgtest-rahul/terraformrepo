@@ -24,7 +24,7 @@ terraform {
 
 
 locals {
-  resource_group_name="Devops_kochi"
+  resource_group_name="Devops_kochi"  
   resource_group_location="West Europe"
   virtual_network={
     name ="rahul-virtual-network"
@@ -59,6 +59,23 @@ resource "azurerm_network_security_group" "nsg" {
   name                = "rahul-network-security-group"
   location            = data.azurerm_resource_group.rahulrgname.location
   resource_group_name = data.azurerm_resource_group.rahulrgname.name
+
+  security_rule {
+    name                       = "AllowRDP"
+    priority                   = 300
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3389"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  tags = {
+    environment = "Production"
+  }
+
 
 }
 
@@ -136,4 +153,13 @@ resource "azurerm_public_ip" "appip" {
     environment = "staging"
   }
 
+  depends_on = [
+    azurerm_resource_group.rahulrgname
+  ]
 }
+
+resource "azurerm_subnet_network_security_group_association" "rahulnsgassociation" {
+  subnet_id                 = azurerm_subnet.subnetA.id
+  network_security_group_id = azurerm_network_security_group.nsg.id
+}
+
