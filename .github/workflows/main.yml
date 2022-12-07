@@ -25,9 +25,10 @@ jobs:
 
       - name: Step -3 Terraform Init
         run: terraform init
+        with:
+          resourcegroup_name: "Devops_kochi"
 
       - name: Step -4 Terraform Plan
         run: terraform plan
-        with:
-          resourcegroup_name: "Devops_kochi"
+
         
