@@ -163,3 +163,23 @@ resource "azurerm_windows_virtual_machine" "rahulvm" {
     azurerm_network_interface.appnetworkinterface
   ]
 }
+
+resource "azurerm_managed_disk" "rahuldatadisk" {
+  name                 = "rahuldatadisk"
+  location             = local.resource_group_location
+  resource_group_name  = local.resource_group_name
+  storage_account_type = "Standard_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = "1"
+
+  tags = {
+    environment = "staging"
+  }
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "diskattachment" {
+  managed_disk_id    = azurerm_managed_disk.rahuldatadisk.id
+  virtual_machine_id = azurerm_windows_virtual_machine.rahulvm.id
+  lun                = "0"
+  caching            = "ReadWrite"
+}
