@@ -15,8 +15,8 @@ data "azurerm_resource_group" "rahulrgname" {
 
 resource "azurerm_storage_account" "storageaccount" {
   name                     = "rahulstoraccount"
-  resource_group_name      = azurerm_resource_group.rahulrgname.name
-  location                 = azurerm_resource_group.rahulrgname.location
+  resource_group_name      = local.resource_group_name
+  location                 = local.resource_group_location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
