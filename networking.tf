@@ -18,10 +18,10 @@ resource "azurerm_virtual_network" "VirtualNetwork" {
 
 resource "azurerm_subnet" "subnets" {
   count = var.number_of_subnets
-  name                 = local.subnets[count.index].name
+  name                 = "Subnet${count.index}"
   resource_group_name  = data.azurerm_resource_group.rahulrgname.name
   virtual_network_name = azurerm_virtual_network.VirtualNetwork.name
-  address_prefixes     = [local.subnets[count.index].address_prefix]
+  address_prefixes     = ["10.0.${count.index}.0/24"]
 
   depends_on = [
     azurerm_virtual_network.VirtualNetwork

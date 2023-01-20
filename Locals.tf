@@ -7,15 +7,4 @@ locals {
     dns_servers = ["10.0.0.4", "10.0.0.5"]
   }
 
-  subnets=[
-    {
-      name="subnetA"
-      address_prefix = "10.0.0.0/24"
-    },
-    {
-      name           = "subnetB"
-      address_prefix = "10.0.1.0/24"
-    }
-  ]
-
 }
