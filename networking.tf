@@ -27,3 +27,37 @@ resource "azurerm_subnet" "subnets" {
     azurerm_virtual_network.VirtualNetwork
   ]
 }
+
+resource "azurerm_network_security_group" "nsg" {
+  name                = "rahul-network-security-group"
+  location            = data.azurerm_resource_group.rahulrgname.location
+  resource_group_name = data.azurerm_resource_group.rahulrgname.name
+  # For linux VM trafic is allowing through secure shell, not through RDP and its port number is 22
+  security_rule {
+    name                       = "AllowSSH"
+    priority                   = 300
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  tags = {
+    environment = "Production"
+  }
+
+}
+
+resource "azurerm_subnet_network_security_group_association" "rahulnsgassociation" {
+  count = var.number_of_subnets
+  subnet_id                 = azurerm_subnet[count.index].id
+  network_security_group_id = azurerm_network_security_group.nsg.id
+  depends_on = [
+    azurerm_virtual_network.VirtualNetwork,
+    azurerm_subnet.subnets
+  ]
+}
+
